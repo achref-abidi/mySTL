@@ -1,7 +1,7 @@
 # specify the source files for subproject 1
 set(SOURCE_FILES
         main.cpp
-        )
+        Array.h)
 
 # specify the header files for subproject 1
 #set(HEADER_FILES
