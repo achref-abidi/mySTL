@@ -34,5 +34,5 @@ using the `delete` operator:
 delete[] arrayOnHeap;
 ```
 Assigning a pointer to a stack-allocated array does not immediately mean that the array is heap-allocated. Only using
-the `new` keyword will allocate data on the heap.
+the `new` keyword will allocate_copy data on the heap.
 

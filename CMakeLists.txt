@@ -8,8 +8,5 @@ project(${PROJECT_NAME})
 
 # subproject 1
 add_subdirectory(array)
-
-add_subdirectory(testcpp)
-
-# subproject 2
-#add_subdirectory(subproject2)
+add_subdirectory(vector)
+add_subdirectory(simple_string)
