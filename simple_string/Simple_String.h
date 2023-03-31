@@ -5,6 +5,8 @@
 #ifndef MYSTL_SIMPLE_STRING_H
 #define MYSTL_SIMPLE_STRING_H
 
+#include <cstring>
+
 namespace mySTL{
     class Simple_String {
     public:
