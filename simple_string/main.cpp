@@ -1,70 +1,9 @@
 #include <iostream>
 #include <cstring>
 
+#include "Simple_String.h"
 
-class string {
-public:
-    // default constructor
-    string(){
-        std::cout << "Called Simple_String()" << std::endl;
-    }
-
-    /**
-     * @brief constructor for creating Simple_String
-     *
-     */
-    string (const char * someString){
-        std::cout << "Creating String" << std::endl;
-        m_size = strlen(someString);
-        // allocating data
-        m_data = new char [m_size];
-        // coping someString content
-        memcpy(m_data, someString, m_size);
-    }
-
-    // copy constructor
-    string(const string & other){
-        std::cout << "Copied!\n";
-        m_size = other.m_size;
-        // coping
-        memcpy(m_data, other.m_data, m_size );
-    }
-
-    // move constructor that takes an rvalue
-    // transfer ownership in some sens
-    string(string && other) noexcept {
-        std::cout << "Moved!\n";
-        if(this != &other) {
-            m_size = other.m_size;
-            // allocating data
-            //m_data = new char[m_size];
-            // coping someString content
-            m_data = other.m_data;
-
-            //delete [] other.m_data;// NO!! we intent to steal it
-            other.m_data = nullptr;
-            other.m_size = 0; // creating hollow object, so the original owner won't be able to delete it
-        }
-    }
-
-    void print(){
-        std::cout << m_data << std::endl;
-    }
-
-    //copy assingment operator
-    string &operator= (const string & rhs){
-        std::cout << "Assigned!\n";
-        return *this;
-    }
-    ~string(){
-        delete [] m_data;
-        std::cout << "Destroyed!\n";
-    }
-
-private:
-    char * m_data;
-    size_t m_size;
-};
+typedef mySTL::Simple_String string;
 
 /**
  * @brief Entity class will just consume Simple_String.

@@ -3,53 +3,90 @@
 #include "../simple_string/Simple_String.h"
 #include "string"
 
+void TestPushandPop();
+void TestmyStringVector();
+void TestAllocationWithInteger();
+void TestAllocationWithString();
+void TestAllocationWithSimpleString();
+void TestDestructorOfPointers();
+void TestClear();
+
 int main(){
 
-/*    mySTL::Vector<int> vect;
+    //TestmyStringVector();
+    //TestAllocationWithString();
+    //TestAllocationWithInteger();
+    //TestmyStringVector();
+    //TestPushandPop();
+    TestClear();
 
-    for(int i=0; i< 5; i++){
-        vect.push_back(i * 2);
+    return 0;
+}
+
+void TestPushandPop()
+{
+    mySTL::Vector<mySTL::Simple_String> stringVector;
+
+    stringVector.push_back("hello1");
+    stringVector.push_back("hello2");
+
+    std::cout << "Size of vector : " << stringVector.size() << std::endl;
+
+    for(int i = stringVector.size() -1; i >= 0 ; i--){
+        stringVector.pop_back();
     }
+    std::cout << "Size of vector : " << stringVector.size() << std::endl;
+}
 
-    std::cout << "Size of vector : " << vect.size() << std::endl;
-
-    for(int i = vect.size() -1; i >= 0 ; i--){
-        std::cout << "Element [" << i << "] = " << vect.pop_back() << std::endl;
-    }
-
-    std::cout << "Size of vector : " << vect.size() << std::endl;
-
-    // testing the allocate_copy()
+void TestAllocationWithInteger(){
+    mySTL::Vector<int> vect;
     for(int i = 0; i < 20; i++){
         vect.push_back(i * 2);
     }
 
     for(int i = 0; i < vect.size(); i++){
         std::cout << "Vect[" << i << "] = " << vect[i] << std::endl;
-    }*/
-
-    mySTL::Vector<std::string> stringVector;
-    // testing the allocate_copy()
-    stringVector.push_back("hello");
-
-    // set m_capacity of the Vector class to 1
-    // the see what you get
-    stringVector.push_back("hello");
-    // this will call push_back(T&&), std::move() to force this call
-
-    /*for(int i = 0; i < 20; i++){
-        stringVector.push_back(mySTL::Simple_String("hello"));
-
-    }*/
-
-    std::cin.get();
-
-    for(size_t i = 0; i < stringVector.size(); i++){
-        std::cout << "Vect[" << i << "] = " ;
-        //stringVector[i].print();
-        std::cout << std::endl;
     }
+}
 
+void TestAllocationWithString(){
+    mySTL::Vector<std::string> stringVector;
 
-    return 0;
+    stringVector.push_back("hello1");
+    stringVector.push_back("hello2");
+    stringVector.push_back("hello3");
+    stringVector.push_back("hello4");
+    stringVector.push_back("hello5");
+    stringVector.push_back("hello6");
+
+    for(size_t i = 0; i < stringVector.size(); i++)
+        std::cout << "Vect[" << i << "] = " << stringVector[i] << std::endl;
+}
+
+void TestmyStringVector(){
+    mySTL::Vector<mySTL::Simple_String> stringVector;
+
+    stringVector.push_back("hello1");
+    stringVector.push_back("hello2");
+    stringVector.push_back("hello3");
+    stringVector.push_back("hello4");
+    stringVector.push_back("hello5");
+    stringVector.push_back("hello6");
+
+    for(size_t i = 0; i < stringVector.size(); i++) {
+        std::cout << "Vect[" << i << "] = " << stringVector[i] << std::endl;
+    }
+}
+
+void TestClear(){
+    mySTL::Vector<mySTL::Simple_String> stringVector;
+
+    stringVector.push_back("hello1");
+    stringVector.push_back("hello2");
+
+    std::cout << "Size of vector : " << stringVector.size() << std::endl;
+
+    stringVector.clear();
+
+    std::cout << "Size of vector : " << stringVector.size() << std::endl;
 }

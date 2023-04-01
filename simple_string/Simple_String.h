@@ -6,20 +6,23 @@
 #define MYSTL_SIMPLE_STRING_H
 
 #include <cstring>
+#include <iostream>
+#include "../util.h"
 
 namespace mySTL{
     class Simple_String {
     public:
-        // default constructor
+
         Simple_String(){
-            std::cout << "Called Simple_String()" << std::endl;
+            LOG("Constructor", "default");
+            // The reason that we have a default constructor is that if we
+            // initialize a block of Simple_String it will call this constructor
         }
-
-
          // constructor for creating Simple_String
         Simple_String (const char * someString){
-            std::cout << "Creating String" << std::endl;
-            m_size = strlen(someString);
+            LOG("Constructor", someString);
+
+            m_size = strlen(someString) + 1;// +1 for the null caracter
             // allocating data
             m_data = new char [m_size];
             // coping someString content
@@ -28,7 +31,8 @@ namespace mySTL{
 
         // copy constructor
         Simple_String(const Simple_String & other){
-            std::cout << "Copied!\n";
+            LOG("Copied", other);
+
             m_size = other.m_size;
             // coping
             memcpy(m_data, other.m_data, m_size );
@@ -37,27 +41,29 @@ namespace mySTL{
         // move constructor that takes an rvalue
         // transfer ownership in some sens
         Simple_String(Simple_String && other) noexcept {
-            std::cout << "Moved!\n";
+            LOG("Moved", other);
+
             if(this != &other) {
                 m_size = other.m_size;
-                // allocating data
-                //m_data = new char[m_size];
-                // coping someString content
+
+                delete [] m_data;
                 m_data = other.m_data;
 
                 //delete [] other.m_data;// NO!! we intent to steal it
+                // creating hollow object, so the original owner won't be able to delete it
                 other.m_data = nullptr;
-                other.m_size = 0; // creating hollow object, so the original owner won't be able to delete it
+                other.m_size = 0;
             }
         }
 
-        void print(){
+        void print() const{
             std::cout << m_data << std::endl;
         }
 
         //copy assingment operator
         Simple_String & operator= (const Simple_String & rhs){
-            std::cout << "Copy Assignment!\n";
+            LOG("Copy Assignment", rhs);
+
             delete [] m_data; // to prevent any data leak
 
             m_size = rhs.m_size;
@@ -70,13 +76,32 @@ namespace mySTL{
 
         //move assingment
         Simple_String & operator=(Simple_String && rhs){
-            std::cout << "Move assignment!\n";
+            LOG("Move assignment", rhs);
+
+            delete [] m_data;
+
+            m_size = rhs.m_size;
+            m_data = rhs.m_data;
+
+            rhs.m_data = nullptr;
+            rhs.m_size = 0;
+
             return *this;
         }
 
         ~Simple_String(){
+            // if we don't do this check of whever m_data == nullptr or not
+            // the behavior of std::cout became unpredictable..
+            // see https://stackoverflow.com/questions/7019454/why-does-stdcout-output-disappear-completely-after-null-is-sent-to-it
+            // or replace the following with LOG("~Simple_String()", m_data);
+            LOG("~Simple_String()", (m_data == nullptr ? "nullptr" : m_data));
             delete [] m_data;
-            std::cout << "Destroyed!\n";
+            m_data = nullptr;
+        }
+
+        friend std::ostream& operator<<(std::ostream& os, const Simple_String& str){
+            os << str.m_data;
+            return os;
         }
 
     private:
