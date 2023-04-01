@@ -39,6 +39,7 @@ using ::operator delete.
 ## Good References
 
 - [VECTOR/DYNAMIC ARRAY - Making DATA STRUCTURES in C++](https://www.youtube.com/watch?v=ryRf4Jh_YC0).
+- [The NEW Keyword in C++](https://www.youtube.com/watch?v=NUZdUSqsCs4).
 
 ## ChatGPT explaining: The Dangers of Double Deletion in C++ Memory Management
 
