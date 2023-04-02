@@ -22,7 +22,7 @@ namespace mySTL{
         Simple_String (const char * someString){
              LOG_TRACE(someString);
 
-            m_size = strlen(someString) + 1;// +1 for the null caracter
+            m_size = strlen(someString) + 1;// +1 for the null character
             // allocating data
             m_data = new char [m_size];
             // coping someString content

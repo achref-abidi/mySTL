@@ -26,7 +26,45 @@ The __ReAlloc()__ member function reallocates memory for the vector. If the new 
 capacity, it creates a new block of memory and moves the elements from the old block to the new block using move
 assignment. Finally, it deallocates the old block of memory.
 
-## The BUG
+## About The use operator delete:
+
+`new[]` allocates a block of memory and calls the constructor of each element in the block, while `delete[]` (do the
+opposed) calls the
+destructor of each element and frees the block of memory allocated by `new[]`.
+
+It's important to note that calling the destructor of each element in the block won't automatically free the space
+allocated for the block itself. The memory block is still present and needs to be freed separately to return to the free
+list of memory.
+
+```
+Vector(){
+m_data = new T[m_capacity];
+}
+
+void clear(){
+for(item in m_data){
+    p->~T();
+    }
+    m_size = 0;
+}
+
+~Vector(){
+delete[] m_data;
+}
+```
+
+In the case of a (simple) vector implementation(as in this example above, psydo-code), the destructor of the vector
+calls the destructor of each element in
+the vector
+and then frees the memory block using `delete[]`. However, there is a bug here; if the `clear()` method is called before
+the vector's destructor,
+it will call the destructor of each element, but the memory block won't be freed. and then vector's destructor is
+called, which will -as we said call the destructor of each element- This can result in a double
+deletion error, leading to undefined behavior and potential program crashes.
+Note that this bug will occure only when the elemnts of vector are complex types meaning that they also have memory
+allocated members.
+
+## ChatGPT : The BUG
 
 the bug that can occur is related to double-deleting memory. In the ~Vector() destructor, there is a call to clear()
 that explicitly calls the destructor of each element in the vector. Then, the destructor deallocates the memory using ::

@@ -8,7 +8,6 @@
 namespace mySTL{
     /**
      * @brief Array is a static, STACK allocated, fixed size array
-     *
      */
      // Usually in C++ if you want to refer to sizes use size_t
     template<typename T, size_t S>
