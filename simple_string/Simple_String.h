@@ -14,13 +14,13 @@ namespace mySTL{
     public:
 
         Simple_String(){
-            LOG("Constructor", "default");
+            LOG_TRACE("default");
             // The reason that we have a default constructor is that if we
             // initialize a block of Simple_String it will call this constructor
         }
          // constructor for creating Simple_String
         Simple_String (const char * someString){
-            LOG("Constructor", someString);
+             LOG_TRACE(someString);
 
             m_size = strlen(someString) + 1;// +1 for the null caracter
             // allocating data

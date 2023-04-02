@@ -59,13 +59,15 @@ void PassPointer(testPointer * p){
 
 int main() {
 
+    mySTL::Simple_String("hello");
+
    /* Entity entity(Simple_String("Achref"));
     entity.PrintString();
 
     int b = 5;
     const int a = b;*/
 
-    {
+    /*{
         testPointer * ptr = new testPointer();
         ptr->print();
         delete ptr;
@@ -76,6 +78,6 @@ int main() {
     std::cout << "Hello!" << std::endl;
 
 
-    std::cin.get();
+    std::cin.get();*/
     return 0;
 }
